@@ -15,13 +15,13 @@
 <style>
 body{margin:0}
 [data-held="1"]{position:relative;filter:grayscale(1);opacity:.45}
-[data-held="1"]::after{content:"Ditahan · maks 2 iklan di layar";position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;background:rgba(255,255,255,.75);color:#111111;font:700 11px Montserrat,sans-serif}
+[data-held="1"]::after{content:"Ditahan";position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;background:rgba(255,255,255,.75);color:#111111;font:700 11px Montserrat,sans-serif}
 </style>
 </helmet>
 <div style="width: 390px; height: 900px; display: flex; flex-direction: column; overflow: hidden; background: #FFFFFF; font-family: 'Montserrat', sans-serif; color: #111111">
 <div style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 10px; display: flex; align-items: center; gap: 8px; background: #111111; color: #FFFFFF">
 <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
-<div style="font-size: 12px; font-weight: 700">Video landscape · 12 slot · maks 2 di layar</div>
+<div style="font-size: 12px; font-weight: 700">Video landscape · 15 slot</div>
 <div style="display: flex; flex-wrap: wrap; column-gap: 8px; row-gap: 2px; font-size: 9px; font-weight: 600; color: #D4D4CF">
 <span style="display: flex; align-items: center; gap: 3px"><span style="width: 8px; height: 8px; background: #2F5DA8"></span>Display / frame</span>
 <span style="display: flex; align-items: center; gap: 3px"><span style="width: 8px; height: 8px; background: #B42318"></span>In Article</span>
@@ -36,7 +36,7 @@ body{margin:0}
 <div style="height: 44px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 0 10px; align-items: center">
 <div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 9px; font-weight: 600; color: #5E5A52">Kedalaman scroll</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{depth}}% · layar {{screen}}</span></div>
 <div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 9px; font-weight: 600; color: #5E5A52">Iklan sudah terlihat</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{seenCount}} / {{total}}</span></div>
-<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 9px; font-weight: 600; color: #5E5A52">Iklan di layar</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{onScreen}} (maks {{maxOn}}) · tahan {{held}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 9px; font-weight: 600; color: #5E5A52">Iklan di layar</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{onScreen}} (maks {{maxOn}})</span></div>
 </div>
 <div style="height: 3px; background: #E5E3DE"><div style="height: 3px; width: {{depthW}}; background: #E06A2C"></div></div>
 </div>
@@ -75,6 +75,17 @@ body{margin:0}
 <div style="font-size: 14px; font-weight: 700">{{r.label}}</div>
 <div style="height: 8px; width: 92%; background: #D4D4CF; border-radius: 4px"></div>
 <div style="height: 8px; width: 70%; background: #D4D4CF; border-radius: 4px"></div>
+</div>
+</sc-if>
+<sc-if value="{{r.isCBGrid}}" hint-placeholder-val="{{false}}">
+<div style="margin: 8px 14px; border: 2px solid #D9B977; border-radius: 10px; background: #F7F6F3; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; font-weight: 700; opacity: {{r.o}}">{{r.label}}</div>
+<div style="display: grid; grid-template-columns: {{r.cols}}; gap: 10px">
+<sc-for list="{{r.cards}}" as="c" hint-placeholder-count="8">
+<sc-if value="{{c.news}}" hint-placeholder-val="{{true}}"><div style="display: flex; gap: 8px; align-items: center; padding-bottom: 8px; border-bottom: 1px solid #E5E3DE; opacity: {{c.o}}"><sc-if value="{{c.thumb}}" hint-placeholder-val="{{true}}"><div style="width: 60px; height: 44px; flex-shrink: 0; background: #DCDCD7; border-radius: 5px"></div></sc-if><div style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px"><div style="font-size: 10px; font-weight: 700; color: #5E5A52">{{c.label}}</div><sc-if value="{{c.txt}}" hint-placeholder-val="{{false}}"><div style="height: 8px; width: 90%; background: #D4D4CF; border-radius: 4px"></div></sc-if></div></div></sc-if>
+<sc-if value="{{c.ad}}" hint-placeholder-val="{{false}}"><div data-ad="{{c.id}}" style="display: flex; gap: 8px; align-items: center; padding: 5px; box-sizing: border-box; border: 2px dashed #6D28D9; background: #EFE7FD; color: #3B1677"><sc-if value="{{c.thumb}}" hint-placeholder-val="{{true}}"><div style="width: 54px; height: 38px; flex-shrink: 0; background: #DDD0F7; border-radius: 5px"></div></sc-if><div style="display: flex; flex-direction: column; gap: 3px"><span style="align-self: flex-start; font-size: 8px; font-weight: 700; padding: 1px 5px; border-radius: 3px; background: #6D28D9; color: #FFFFFF">Sponsor</span><div style="font-size: 10px; font-weight: 700">{{c.label}}</div></div></div></sc-if>
+</sc-for>
+</div>
 </div>
 </sc-if>
 <sc-if value="{{r.isHeader}}" hint-placeholder-val="{{false}}">
@@ -157,7 +168,7 @@ class Component extends DCLogic {
     });
     const visible = Object.keys(groups).filter((id) => groups[id].vis)
       .sort((a, b) => (groups[a].prio - groups[b].prio) || (groups[a].order - groups[b].order));
-    const allowed = (groups['PRE'] && groups['PRE'].vis) ? ['PRE'] : visible.slice(0, 2);
+    const allowed = (groups['PRE'] && groups['PRE'].vis) ? ['PRE'] : visible;
     Object.keys(groups).forEach((id) => {
       const held = groups[id].vis && allowed.indexOf(id) < 0;
       groups[id].nodes.forEach((n) => { if (held) n.setAttribute('data-held', '1'); else n.removeAttribute('data-held'); });
@@ -181,16 +192,16 @@ class Component extends DCLogic {
     const st = this.state || {};
     const o = st.adsOnly ? 0.2 : 1;
     const P = 'M';
-    const SPEC = [["ad", "Premium Billboard / Mega Billboard", 300, 480, "300x480", "Impresi pertama, sebelum header", "fixed"], ["header"], ["nav"], ["nav2"], ["ad", "Billboard", 320, 100, "320x100", "Setelah navbar, sebelum judul", "fixed"], ["title"], ["btn", "Interaksi Button"], ["video"], ["para", "Isi"], ["btn", "Interaksi Button"], ["meta", "Tag"], ["ad", "Exploration Ad 1", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "Tombol Komentar"], ["cb", "Berita Terkait"], ["ad", "Exploration Ad 2", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Artikel Rekomendasi"], ["nat", "Native Adsmart 1"], ["ad", "Exploration Ad 3", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB detikEvent"], ["ad", "Exploration Ad 4", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Berita detikcom Lainnya"], ["ad", "Exploration Ad 5", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Lapor Jatim"], ["ad", "Exploration Ad 6", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Lapor Cak"], ["ad", "Exploration Ad 7", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Flash"], ["ad", "Exploration Ad 8", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["footer"]];
+    const SPEC = [["ad", "Premium Billboard / Mega Billboard", 300, 480, "300x480", "Impresi pertama, sebelum header", "fixed"], ["header"], ["nav"], ["nav2"], ["ad", "Billboard", 320, 100, "320x100", "Setelah navbar, sebelum judul", "fixed"], ["title"], ["btn", "Interaksi Button"], ["video"], ["para", "Isi"], ["btn", "Interaksi Button"], ["meta", "Tag"], ["cb", "Newstag"], ["cb", "Hidden Quiz"], ["ad", "Exploration Ad 1", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "Tombol Komentar"], ["ad", "Exploration Ad 2", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cbgrid", "Berita Terkait", -1, "Berita Terkait 1", "AD:Native Berita Terkait", "Berita Terkait 2", "Berita Terkait 3", "Berita Terkait 4", "Berita Terkait 5", "Berita Terkait 6"], ["cb", "CB Artikel Rekomendasi"], ["nat", "Native Adsmart 1"], ["ad", "Exploration Ad 3", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB detikEvent"], ["ad", "Exploration Ad 4", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cbgrid", "CB Berita detikcom Lainnya", 1, "Berita Lainnya 1", "Berita Lainnya 2", "AD:Native Newsfeed Detail 1", "Berita Lainnya 3", "Berita Lainnya 4", "AD:Native Newsfeed Detail 2", "Berita Lainnya 5", "Berita Lainnya 6", "Berita Lainnya 7", "Berita Lainnya 8"], ["ad", "Exploration Ad 5", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Lapor Jatim"], ["ad", "Exploration Ad 6", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Lapor Cak"], ["ad", "Exploration Ad 7", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["cb", "CB Flash"], ["ad", "Exploration Ad 8", 320, 100, "320x100", "Setelah artikel, sebelum CB", "exp"], ["footer"]];
     const C = {
       fixed: { bd: '#2F5DA8', bg: '#E3ECFA', fg: '#1E3A6E' },
       ia: { bd: '#B42318', bg: '#FDE8E6', fg: '#7A1A12' },
       exp: { bd: '#0F766E', bg: '#DDF3EF', fg: '#0B4F49' }
     };
-    const FLAGS = ['isAd', 'isNat', 'isPair', 'isCB', 'isApps', 'isHeader', 'isNav', 'isNav2', 'isTitle', 'isMeta', 'isImg', 'isPara', 'isFoto', 'isVideo', 'isBtn', 'isPage', 'isFooter', 'isGrid', 'isKomHead', 'isKom', 'isNatKom', 'isPaging'];
+    const FLAGS = ['isAd', 'isNat', 'isPair', 'isCB', 'isApps', 'isHeader', 'isNav', 'isNav2', 'isTitle', 'isMeta', 'isImg', 'isPara', 'isFoto', 'isVideo', 'isBtn', 'isPage', 'isFooter', 'isGrid', 'isKomHead', 'isKom', 'isNatKom', 'isPaging', 'isGallery', 'isBox', 'isCBGrid'];
     const base = { o: o };
     FLAGS.forEach((f) => { base[f] = false; });
-    const fl = { ad: 'isAd', nat: 'isNat', pair: 'isPair', cb: 'isCB', apps: 'isApps', header: 'isHeader', nav: 'isNav', nav2: 'isNav2', title: 'isTitle', meta: 'isMeta', img: 'isImg', para: 'isPara', foto: 'isFoto', video: 'isVideo', btn: 'isBtn', page: 'isPage', footer: 'isFooter', grid: 'isGrid', komhead: 'isKomHead', kom: 'isKom', natkom: 'isNatKom', paging: 'isPaging' };
+    const fl = { ad: 'isAd', nat: 'isNat', pair: 'isPair', cb: 'isCB', apps: 'isApps', header: 'isHeader', nav: 'isNav', nav2: 'isNav2', title: 'isTitle', meta: 'isMeta', img: 'isImg', para: 'isPara', foto: 'isFoto', video: 'isVideo', btn: 'isBtn', page: 'isPage', footer: 'isFooter', grid: 'isGrid', komhead: 'isKomHead', kom: 'isKom', natkom: 'isNatKom', paging: 'isPaging', gallery: 'isGallery', box: 'isBox', cbgrid: 'isCBGrid' };
     let natN = 0;
     const cell = (t) => t.indexOf('AD:') === 0 ? { ad: true, news: false, id: P + 'N' + (++natN), label: t.slice(3), o: o } : { ad: false, news: true, label: t, o: o };
     const build = (spec, start) => {
@@ -201,6 +212,7 @@ class Component extends DCLogic {
         if (x[0] === 'ad') Object.assign(r, C[x[6]], { id: P + r.no, wpx: x[2] + 'px', hpx: x[3] + 'px', size: x[4], note: x[5] });
         if (x[0] === 'nat' || x[0] === 'natkom') r.id = P + r.no;
         if (x[0] === 'pair') r.cards = [cell(x[1]), cell(x[2])];
+        if (x[0] === 'cbgrid') { const th = x[2] > 0; r.cards = x.slice(3).map((s) => ({ ...cell(s), thumb: th, txt: !th })); r.cols = 'repeat(' + Math.abs(x[2]) + ', minmax(0, 1fr))'; }
         if (x[0] === 'grid') { r.cards = x.slice(2).map(cell); r.cols = 'repeat(' + x[1] + ', minmax(0, 1fr))'; }
         return r;
       });
